@@ -21,13 +21,14 @@ const Logo = ({
   variant?: "light" | "dark";
 }) => (
   <img
-    src={variant === "light" ? "/logo-light.svg" : "/logo-dark.svg"}
+    src={variant === "light" ? "/logo-light.png" : "/logo-dark.png"}
     alt="Cavallaro Marcenaria"
     className={className}
     loading="eager"
     decoding="async"
   />
 );
+
 
 
 // --- Types ---
