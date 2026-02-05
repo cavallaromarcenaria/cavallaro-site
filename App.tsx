@@ -8,6 +8,28 @@ import {
   ClipboardList, Factory, Truck, Instagram
 } from 'lucide-react';
 
+// --- Constants ---
+const WHATSAPP_LINK = "https://wa.me/5519982343000?text=Olá! Gostaria de solicitar um orçamento de marcenaria sob medida.";
+const CTA_TEXT = "Solicitar orçamento no WhatsApp";
+
+// --- Assets ---
+const Logo = ({
+  className = "w-10 h-10",
+  variant = "light",
+}: {
+  className?: string;
+  variant?: "light" | "dark";
+}) => (
+  <img
+    src={variant === "light" ? "/logo-light.svg" : "/logo-dark.svg"}
+    alt="Cavallaro Marcenaria"
+    className={className}
+    loading="eager"
+    decoding="async"
+  />
+);
+
+
 // --- Types ---
 interface StepProps {
   number: string;
@@ -78,6 +100,7 @@ const Header = () => {
   ];
 
   const textColor = isScrolled ? 'text-deep-blue' : 'text-sand';
+  const logoColor = isScrolled ? '#2e266d' : '#f5f2ed';
   const buttonClass = isScrolled 
     ? 'bg-deep-blue text-white hover:bg-opacity-90' 
     : 'bg-sand text-deep-blue hover:bg-white';
@@ -85,8 +108,12 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-white shadow-lg py-3' : 'bg-transparent py-6'}`}>
       <div className="container mx-auto px-6 flex justify-between items-center">
-        <a href="#inicio" className={`font-serif text-2xl font-bold tracking-tight transition-colors duration-300 ${textColor}`}>
-          Cavallaro <span className="font-light">Marcenaria</span>
+        <a href="#inicio" className={`flex items-center gap-3 font-serif text-2xl font-bold tracking-tight transition-colors duration-300 ${textColor}`}>
+         <Logo className="w-10 h-10" variant={isScrolled ? "dark" : "light"} />
+          <div className="flex flex-col leading-none">
+            <span>Cavallaro</span>
+            <span className="text-[10px] uppercase tracking-[0.3em] font-sans font-light mt-1">Marcenaria</span>
+          </div>
         </a>
 
         {/* Desktop Menu */}
@@ -106,8 +133,8 @@ const Header = () => {
             >
               <Instagram size={20} />
             </a>
-            <a href="#contato" className={`px-6 py-2 rounded-sm text-sm font-medium transition-all duration-300 ${buttonClass}`}>
-              Solicitar orçamento
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className={`px-6 py-2 rounded-sm text-sm font-medium transition-all duration-300 ${buttonClass}`}>
+              {CTA_TEXT}
             </a>
           </div>
         </nav>
@@ -137,6 +164,7 @@ const Header = () => {
       {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 bg-deep-blue z-40 lg:hidden transition-transform duration-500 transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full justify-center items-center space-y-8">
+          <Logo className="w-20 h-20 mb-4" variant="light" />
           {menuItems.map((item) => (
             <a 
               key={item.label} 
@@ -156,11 +184,13 @@ const Header = () => {
             <Instagram size={24} /> @cavallaro.marcenaria
           </a>
           <a 
-            href="#contato" 
+            href={WHATSAPP_LINK} 
+            target="_blank" 
+            rel="noopener noreferrer"
             onClick={() => setIsMenuOpen(false)}
             className="bg-sand text-deep-blue px-8 py-3 rounded-sm font-bold"
           >
-            Solicitar orçamento
+            {CTA_TEXT}
           </a>
         </div>
       </div>
@@ -176,22 +206,20 @@ const Hero = () => (
       <div>
         <RevealOnScroll>
           <div className="inline-block px-4 py-1 bg-sand/10 border border-sand/20 rounded-full mb-6">
-            <span className="text-sand text-xs font-bold uppercase tracking-widest">Do Planejamento à Instalação Completa</span>
+            <span className="text-sand text-xs font-bold uppercase tracking-widest">Móveis Planejados em Campinas, Hortolândia e Região</span>
           </div>
-          <h1 className="font-serif text-5xl lg:text-7xl text-sand leading-tight mb-6">
-            Móveis pensados <br />
-            <span className="italic font-light opacity-90 text-white">para a sua rotina.</span>
+          <h1 className="font-serif text-4xl lg:text-6xl text-sand leading-tight mb-6">
+            Marcenaria sob medida com projeto, execução e acompanhamento do início ao fim
           </h1>
         </RevealOnScroll>
         <RevealOnScroll className="stagger-1">
           <p className="text-lg text-sand/80 mb-10 max-w-lg leading-relaxed">
-            Unimos escuta atenta, design funcional e montagem profissional em um só lugar. 
-            Transformamos seus ambientes com soluções inteligentes, práticas e alinhadas ao seu investimento.
+            Projetamos, acompanhamos a produção e realizamos a montagem com atenção real aos detalhes. Atendemos Campinas, Hortolândia e região com excelência em marcenaria sob medida.
           </p>
         </RevealOnScroll>
         <RevealOnScroll className="stagger-2 flex flex-col sm:flex-row gap-4">
-          <a href="#contato" className="bg-sand text-deep-blue px-8 py-4 rounded-sm font-bold flex items-center justify-center gap-2 group hover:gap-3 transition-all shadow-xl shadow-black/20">
-            Pedir orçamento <ArrowRight size={18} />
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="bg-sand text-deep-blue px-8 py-4 rounded-sm font-bold flex items-center justify-center gap-2 group hover:gap-3 transition-all shadow-xl shadow-black/20">
+            {CTA_TEXT} <ArrowRight size={18} />
           </a>
           <a href="#processo" className="border border-sand/30 text-sand px-8 py-4 rounded-sm font-medium hover:bg-sand/10 transition-all text-center">
             Conheça nosso método
@@ -236,24 +264,24 @@ const Features = () => (
   <section className="py-24 bg-white">
     <div className="container mx-auto px-6">
       <RevealOnScroll className="text-center mb-16">
-        <h2 className="font-serif text-4xl text-deep-blue mb-4">Nosso Diferencial</h2>
+        <h2 className="font-serif text-4xl text-deep-blue mb-4">Móveis Planejados com Qualidade Superior</h2>
         <div className="h-1 w-20 bg-deep-blue mx-auto"></div>
       </RevealOnScroll>
       <div className="grid md:grid-cols-3 gap-12">
         {[
           {
-            title: "Desenvolvimento focado no uso",
-            desc: "Nossos projetos priorizam a funcionalidade. Cada solução é desenhada para organizar e facilitar sua rotina.",
+            title: "Marcenaria sob medida focada no uso",
+            desc: "Nossos projetos em Campinas e Hortolândia priorizam a funcionalidade. Cada solução é desenhada para organizar e facilitar sua rotina.",
             icon: <Search size={32} />
           },
           {
-            title: "Qualidade e Viabilidade",
+            title: "Qualidade e Viabilidade Técnica",
             desc: "Trabalhamos com materiais de alta resistência MDFs Arauco, Berneck, Flora, Guararapes entre outros, equilibrando durabilidade e um investimento otimizado.",
             icon: <CheckCircle2 size={32} />
           },
           {
-            title: "Execução Técnica",
-            desc: "Nossa equipe garante uma instalação precisa, respeitando os prazos e a organização do seu imóvel.",
+            title: "Execução Técnica Especializada",
+            desc: "Nossa equipe garante uma instalação precisa de móveis planejados, respeitando os prazos e a organização do seu imóvel na região.",
             icon: <Hammer size={32} />
           }
         ].map((item, i) => (
@@ -272,7 +300,6 @@ const Features = () => (
 
 const ProcessStep: React.FC<StepProps> = ({ number, title, description, icon, isLast }) => (
   <div className="relative flex flex-col items-center text-center px-4 group flex-1">
-    {/* Visual Connector Line - Improved for desktop horizontal view */}
     {!isLast && (
       <div className="hidden lg:block absolute top-10 left-[calc(50%+40px)] w-[calc(100%-80px)] h-[1px] bg-deep-blue/20 z-0">
         <div className="absolute right-0 top-[-2px] w-1.5 h-1.5 rounded-full bg-deep-blue/20"></div>
@@ -296,18 +323,16 @@ const Process = () => (
   <section id="processo" className="py-24 bg-sand overflow-hidden">
     <div className="container mx-auto px-6">
       <RevealOnScroll className="text-center mb-24">
-        <h2 className="font-serif text-4xl text-deep-blue mb-4">Nosso Método</h2>
+        <h2 className="font-serif text-4xl text-deep-blue mb-4">Como trabalhamos</h2>
         <div className="h-1 w-20 bg-deep-blue mx-auto mb-6"></div>
-        <p className="text-graphite max-w-xl mx-auto">Uma jornada técnica transparente, focada em transformar seu espaço com precisão industrial e cuidado artesanal.</p>
+        <p className="text-graphite max-w-xl mx-auto">Nosso processo é pensado para dar clareza, segurança e controle em cada etapa, desde o briefing até a montagem final.</p>
       </RevealOnScroll>
       
-      {/* Horizontal View Container */}
       <div className="flex flex-col lg:flex-row lg:justify-between gap-y-16 lg:gap-y-0 relative">
-        <RevealOnScroll className="stagger-1 flex flex-1"><ProcessStep number="1" icon={<MessageSquare size={28} />} title="Briefing" description="Entendimento profundo da sua necessidade e estilo de vida." /></RevealOnScroll>
-        <RevealOnScroll className="stagger-2 flex flex-1"><ProcessStep number="2" icon={<Search size={28} />} title="Levantamento" description="Medição técnica detalhada para garantir precisão milimétrica." /></RevealOnScroll>
-        <RevealOnScroll className="stagger-3 flex flex-1"><ProcessStep number="3" icon={<Layout size={28} />} title="Projeto" description="Visualização e aprovação técnica de cada detalhe do mobiliário." /></RevealOnScroll>
-        <RevealOnScroll className="stagger-4 flex flex-1"><ProcessStep number="4" icon={<Factory size={28} />} title="Produção" description="Manufatura industrial de ponta com gestão técnica dedicada." /></RevealOnScroll>
-        <RevealOnScroll className="stagger-5 flex flex-1"><ProcessStep number="5" icon={<Truck size={28} />} title="Montagem" description="Instalação profissional, limpa e com acabamento de alto padrão." isLast /></RevealOnScroll>
+        <RevealOnScroll className="stagger-1 flex flex-1"><ProcessStep number="1" icon={<MessageSquare size={28} />} title="Briefing e levantamento técnico" description="Entendimento profundo da sua necessidade e levantamento técnico preciso do ambiente." /></RevealOnScroll>
+        <RevealOnScroll className="stagger-2 flex flex-1"><ProcessStep number="2" icon={<Layout size={28} />} title="Projeto detalhado e alinhamento" description="Desenvolvimento do projeto de móveis planejados com foco total no cliente." /></RevealOnScroll>
+        <RevealOnScroll className="stagger-3 flex flex-1"><ProcessStep number="3" icon={<Factory size={28} />} title="Produção homologada" description="Produção industrial com fornecedores homologados para garantir qualidade superior." /></RevealOnScroll>
+        <RevealOnScroll className="stagger-4 flex flex-1"><ProcessStep number="4" icon={<Truck size={28} />} title="Execução e acompanhamento" description="Montagem técnica acompanhada de perto para garantir a perfeição em cada detalhe." isLast /></RevealOnScroll>
       </div>
     </div>
   </section>
@@ -326,8 +351,8 @@ const Services = () => (
   <section id="servicos" className="py-24 bg-white">
     <div className="container mx-auto px-6">
       <RevealOnScroll className="text-center mb-16">
-        <h2 className="font-serif text-4xl text-deep-blue mb-4">Móveis para todos os ambientes</h2>
-        <p className="text-graphite">Soluções planejadas que valorizam e otimizam cada m² do seu imóvel.</p>
+        <h2 className="font-serif text-4xl text-deep-blue mb-4">Marcenaria para todos os ambientes</h2>
+        <p className="text-graphite">Soluções de móveis planejados que valorizam e otimizam cada m² em Campinas, Hortolândia e região.</p>
       </RevealOnScroll>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
         <ServiceCard icon={<ChefHat size={40} />} title="Cozinhas" />
@@ -365,8 +390,8 @@ const Studies = () => (
   <section id="estudos" className="py-24 bg-sand">
     <div className="container mx-auto px-6">
       <RevealOnScroll className="text-center mb-16">
-        <h2 className="font-serif text-4xl text-deep-blue mb-4">Estudos de Projeto</h2>
-        <p className="text-graphite max-w-2xl mx-auto">Confira nossa visão criativa para diferentes espaços. Estes projetos exemplificam a versatilidade que podemos planejar para você.</p>
+        <h2 className="font-serif text-4xl text-deep-blue mb-4">Estudos de Projeto Sob Medida</h2>
+        <p className="text-graphite max-w-2xl mx-auto">Confira nossa visão criativa para diferentes espaços. Estes projetos exemplificam a versatilidade que podemos planejar para você na região de Hortolândia.</p>
       </RevealOnScroll>
       <div className="grid md:grid-cols-3 gap-8">
         <StudyCard title="Cozinha Integrada" description="Uso de texturas naturais para criar um ambiente acolhedor e funcional." />
@@ -394,12 +419,12 @@ const Testimonials = () => (
   <section id="depoimentos" className="py-24 bg-white">
     <div className="container mx-auto px-6">
       <RevealOnScroll className="text-center mb-16">
-        <h2 className="font-serif text-4xl text-deep-blue mb-4">Experiência dos Clientes</h2>
-        <p className="text-graphite">O que nossos clientes dizem sobre nossa atenção e entrega.</p>
+        <h2 className="font-serif text-4xl text-deep-blue mb-4">Depoimentos sobre nossa Marcenaria</h2>
+        <p className="text-graphite">O que nossos clientes de Campinas e Hortolândia dizem sobre nossa atenção e entrega.</p>
       </RevealOnScroll>
       <div className="grid md:grid-cols-3 gap-8">
         <TestimonialCard 
-          content="Fiquei impressionada com o quanto ouviram minhas necessidades. A cozinha ficou perfeita para o meu dia a dia." 
+          content="Fiquei impressionada com o quanto ouviram minhas necessidades. A cozinha planejada ficou perfeita para o meu dia a dia." 
           author="Ana Paula S."
         />
         <TestimonialCard 
@@ -407,7 +432,7 @@ const Testimonials = () => (
           author="Marcos Oliveira"
         />
         <TestimonialCard 
-          content="Todo o suporte necessário foi oferecido. Do primeiro desenho à instalação, houve total transparência." 
+          content="Todo o suporte necessário foi oferecido. Do primeiro desenho à instalação sob medida, houve total transparência." 
           author="Juliana Costa"
         />
       </div>
@@ -482,8 +507,8 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-20">
           <div>
             <RevealOnScroll>
-              <h2 className="font-serif text-4xl text-deep-blue mb-6">Inicie seu planejamento</h2>
-              <p className="text-graphite mb-12">Estamos à disposição para ouvir sua ideia e transformá-la em um projeto viável e funcional.</p>
+              <h2 className="font-serif text-4xl text-deep-blue mb-6">Inicie seu planejamento em Campinas ou Hortolândia</h2>
+              <p className="text-graphite mb-12">Estamos à disposição para ouvir sua ideia e transformá-la em um projeto de marcenaria sob medida viável e funcional.</p>
             </RevealOnScroll>
             
             <RevealOnScroll className="stagger-1 space-y-6">
@@ -491,7 +516,7 @@ const Contact = () => {
                 <div className="bg-sand p-3 rounded-full"><Phone size={24} /></div>
                 <div>
                   <p className="text-xs uppercase tracking-widest font-bold opacity-50">Contato Direto</p>
-                  <a href="javascript:void(0)" className="text-xl font-medium">WhatsApp Cavallaro</a>
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-xl font-medium hover:underline">WhatsApp Cavallaro</a>
                 </div>
               </div>
               <div className="flex items-center gap-4 text-deep-blue">
@@ -505,7 +530,7 @@ const Contact = () => {
                 <div className="bg-sand p-3 rounded-full"><PencilRuler size={24} /></div>
                 <div>
                   <p className="text-xs uppercase tracking-widest font-bold opacity-50">Localização</p>
-                  <p className="text-xl font-medium">Região de Campinas e interior</p>
+                  <p className="text-xl font-medium">Hortolândia, Campinas e região</p>
                 </div>
               </div>
             </RevealOnScroll>
@@ -536,7 +561,7 @@ const Contact = () => {
               </div>
               <div>
                 <label htmlFor="message" className="block text-sm font-bold text-deep-blue mb-2 uppercase tracking-wide">Conte sobre o seu espaço</label>
-                <textarea id="message" rows={4} className="w-full px-4 py-3 bg-white border border-transparent focus:border-deep-blue focus:outline-none transition-all" placeholder="Ex: Preciso planejar os armários da cozinha do meu novo apartamento."></textarea>
+                <textarea id="message" rows={4} className="w-full px-4 py-3 bg-white border border-transparent focus:border-deep-blue focus:outline-none transition-all" placeholder="Ex: Preciso planejar os armários da cozinha do meu novo apartamento em Hortolândia."></textarea>
               </div>
               
               {status === 'success' ? (
@@ -545,7 +570,7 @@ const Contact = () => {
                 </div>
               ) : (
                 <button type="submit" className="w-full bg-deep-blue text-white py-4 font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all">
-                  Enviar Solicitação <Send size={18} />
+                  {CTA_TEXT} <Send size={18} />
                 </button>
               )}
             </form>
@@ -560,9 +585,12 @@ const Footer = () => (
   <footer className="bg-deep-blue text-sand py-16">
     <div className="container mx-auto px-6">
       <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
-        <div className="text-center md:text-left">
-          <h2 className="font-serif text-3xl font-bold mb-2">Cavallaro Marcenaria</h2>
-          <p className="opacity-60 text-sm italic">Projetos inteligentes focados na sua rotina.</p>
+        <div className="flex items-center gap-4 text-center md:text-left">
+          <Logo className="w-16 h-16" variant="light" />
+          <div>
+            <h2 className="font-serif text-3xl font-bold mb-1">Cavallaro</h2>
+            <p className="opacity-60 text-xs uppercase tracking-widest font-sans font-light">Marcenaria Sob Medida</p>
+          </div>
         </div>
         <div className="flex flex-col items-center md:items-end gap-6">
           <div className="flex gap-8">
@@ -585,8 +613,8 @@ const Footer = () => (
         </div>
       </div>
       <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs opacity-40 gap-4">
-        <p>© {new Date().getFullYear()} Cavallaro Marcenaria. Soluções em mobiliário planejado.</p>
-        <p>Atendimento em Campinas, Hortolândia e região.</p>
+        <p>© {new Date().getFullYear()} Cavallaro Marcenaria. Móveis Planejados Sob Medida.</p>
+        <p>Atendimento especializado em Campinas, Hortolândia e região.</p>
       </div>
     </div>
   </footer>
@@ -610,9 +638,11 @@ export default function App() {
       
       {/* Floating WhatsApp Action */}
       <a 
-        href="javascript:void(0)" 
+        href={WHATSAPP_LINK} 
+        target="_blank" 
+        rel="noopener noreferrer"
         className="fixed bottom-8 right-8 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-50 flex items-center justify-center"
-        aria-label="Falar no WhatsApp"
+        aria-label="Solicitar orçamento no WhatsApp"
       >
         <Phone size={24} />
       </a>

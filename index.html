@@ -4,7 +4,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cavallaro Marcenaria | Precisão e Design</title>
+    <title>Marcenaria Sob Medida em Hortolândia e Campinas | Cavallaro</title>
+    <meta name="description" content="Marcenaria sob medida com projeto, execução e montagem. Atendemos Hortolândia, Campinas e região. Solicite um orçamento." />
+    <!-- Favicon -->
+   <Logo className="w-10 h-10" variant={isScrolled ? "dark" : "light"} />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M30 85h40v-5H30v5zm5-10h30l-3-7c-5-10-15-15-20-25 0 0-5 5-5 15s5 12 8 17zm15-55c-10 0-20 10-20 20 0 5 2 10 5 12-2-5-2-10 0-15 5-10 15-15 25-15 5 0 10 2 12 5-5-5-12-7-22-7z' fill='%232e266d'/%3E%3Cpath d='M50 20c-15 0-25 15-25 30 0 15 10 25 10 25h30s10-10 10-25-10-30-25-30zm-5 15c2 0 4 2 4 4s-2 4-4 4-4-2-4-4 2-4 4-4z' fill='%232e266d'/%3E%3C/svg%3E">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,8 +55,16 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ2GDJNWTK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VZ2GDJNWTK');
+</script>
   <body class="bg-sand text-graphite font-sans">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
